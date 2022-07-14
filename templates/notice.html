@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>동탄고 게시판</title>
+    <style>
+      .header{
+        margin-top: 50px;
+      }
+      .board{
+        text-align:center;
+        width:100%;
+        height:400px;
+        background-image: url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA0MDFfMTEy%2FMDAxNjE3MjM2MDc5NDc4.r7ML9az-fyNl95x9Yu6glckB2qoGK-goJ5PsDTV2N3sg.sgiX8XiqzCB_IeKHqa7zc0xBH7uBXVEfISBkRNJfZPwg.PNG.rtkids100%2F1k983.png&type=sc960_832');
+        background-repeat:no-repeat;
+        padding-top:60px;
+        background-attachment: fixed;
+        background-size: cover;
+
+      }
+      .nav-container{
+
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: darkslategrey;
+        list-style-type: none;
+      }
+
+      .nav-item{
+        padding: 15px;
+        cursor: pointer;
+      }
+
+      .nav-item a {
+        text-align: center;
+        text-decoration: none;
+        color: white;
+      }
+
+      .nav-item:nth-child(1) {
+        background-color: lightseagreen;
+      }
+
+      .nav-item:hover {
+        background-color: grey;
+      }
+
+      .nav-container {
+        position: fixed;
+        top: 0;
+      }
+      table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+section.notice {
+  padding: 80px 0;
+}
+
+.page-title {
+  margin-bottom: 60px;
+}
+.page-title h3 {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 400;
+  text-align: center;
+}
+
+#board-search .search-window {
+  padding: 15px 0;
+  background-color: #f9f7f9;
+}
+#board-search .search-window .search-wrap {
+  position: relative;
+/*   padding-right: 124px; */
+  margin: 0 auto;
+  width: 80%;
+  max-width: 564px;
+}
+#board-search .search-window .search-wrap input {
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+#board-search .search-window .search-wrap input:focus {
+  border-color: #333;
+  outline: 0;
+  border-width: 1px;
+}
+#board-search .search-window .search-wrap .btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 108px;
+  padding: 0;
+  font-size: 16px;
+}
+
+.board-table {
+  font-size: 13px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+.board-table a:hover {
+  text-decoration: underline;
+}
+.board-table th {
+  text-align: center;
+}
+
+.board-table .th-num {
+  width: 100px;
+  text-align: center;
+}
+
+.board-table .th-date {
+  width: 200px;
+}
+
+.board-table th, .board-table td {
+  padding: 14px 0;
+}
+
+.board-table tbody td {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+}
+
+.board-table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+
+.board-table tbody th p{
+  display: none;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 15px;
+  font-weight: 400;
+  background: transparent;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  text-transform: uppercase;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btn-dark {
+  background: #555;
+  color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+  background: #373737;
+  border-color: #373737;
+  color: #fff;
+}
+
+.btn-dark {
+  background: #555;
+  color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+  background: #373737;
+  border-color: #373737;
+  color: #fff;
+}
+
+/* reset */
+
+* {
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.container {
+  width: 1100px;
+  margin: 0 auto;
+}
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul class="nav-container"> <!--링크 추가부탁-->
+        <li class="nav-item"><a href="../">동탄고 커뮤니티</a></li>
+      <li class="nav-item"><a href="../post/write">게시하기</a></li>
+      <li class="nav-item"><a href="../board">게시판</a></li>
+      <li class="nav-item"><a href="../notice">공지사항</a></li>
+      <li class="nav-item"><a href="학교소개.html">학교 소개</a></li>
+      </ul>
+    </nav>
+    <div class = "header">
+      <img src = "https://dongtan.hs.kr/upload/dongtan.hs.kr/site_file/logo.jpg" style = "height:80px;">
+    </div>
+    <div class = "board">
+    </div>
+    <section class="notice">
+  <div class="page-title">
+        <div class="container">
+            <h3>동탄고 공지사항</h3>
+        </div>
+    </div>
+
+    <!-- board seach area -->
+    <div id="board-search">
+        <div class="container">
+            <div class="search-window">
+                <form action="">
+                    <div class="search-wrap">
+                        <label for="search" class="blind">공지사항 내용 검색</label>
+                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                        <button type="submit" class="btn btn-dark">검색</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+  <!-- board list area -->
+    <div id="board-list">
+        <div class="container">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="th-num">번호</th>
+                    <th scope="col" class="th-title">제목</th>
+                    <th scope="col" class="th-date">등록일</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>5</td>
+                    <th>
+                      <a href="#!">[공지사항] 동탄고 공지사항 페이지에 오신 걸 환영합니다.</a>
+                      <p>테스트</p>
+                    </th>
+                    <td>2022.07.13</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <th><a href="공지사항(시간표).html">공지사항 안내입니다. 동탄고등학교 시간표 안내</a></th>
+                    <td>2022.07.13</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <th><a href="공지사항(모의고사).html">공지사항 안내입니다. 2022년도 모의고사 일정</a></th>
+                    <td>2022.07.13</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <th><a href="공지사항(학사일정).html">공지사항 안내입니다. 2022년도 학사일정</a></th>
+                    <td>2022.07.13</td>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <th><a href="공지사항(7월급식).html">공지사항 안내입니다. 동탄고 7월 급식 </a></th>
+                    <td>2022.07.13</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+  </body>
+</html>

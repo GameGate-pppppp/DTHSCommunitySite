@@ -1,0 +1,274 @@
+<head>
+  <title>동탄고 커뮤니티</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/index.js"></script>
+  <style>
+    th, td{
+       border: 1px solid #444444;
+       padding:6px;
+    }
+    header{
+  margin-top: 80px;
+  margin-left: 30px;
+}
+body{
+  margin: 0;
+}
+
+.nav-container{
+
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: darkslategrey;
+  list-style-type: none;
+}
+
+.nav-item{
+  padding: 15px;
+  cursor: pointer;
+}
+
+.nav-item a {
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-item:nth-child(1) {
+  background-color: lightseagreen;
+}
+
+.nav-item:hover {
+  background-color: grey;
+}
+
+.nav-container {
+  position: fixed;
+  top: 0;
+}
+
+.table{
+  margin-left: 30px;
+  width: 80%;
+  border: 1px solid #444444;
+  border-collapse: collapse;
+  empty-cells: hide;
+  height:300px;
+  margin-left:10%;
+}
+
+table a:link {
+  color : black;
+  text-decoration: none;
+}
+table a:visited {
+  color : black;
+  text-decoration: none;
+}
+table a:hover {
+  color : grey;
+  text-decoration: underline;
+}
+table a:active {
+  color : black;
+  text-decoration: none;
+}
+.table2{
+  margin-left: 30px;
+  width: 80%;
+  border: 1px solid #444444;
+  border-collapse: collapse;
+  empty-cells: hide;
+  height:300px;
+}
+
+table2 a:link {
+  color : black;
+  text-decoration: none;
+}
+table2 a:visited {
+  color : black;
+  text-decoration: none;
+}
+table2 a:hover {
+  color : grey;
+  text-decoration: underline;
+}
+table2 a:active {
+  color : black;
+  text-decoration: none;
+}
+#main {
+  margin: auto;
+  margin-top: 1px;
+  margin-left: 50px;
+  margin-bottom: 100px;
+  background-color: #A9D0F5;
+  text-align: center;
+  width: 95%;
+  height: 600px;
+  border: 1px solid black;
+}
+
+/* 채팅 영역 */
+#chat {
+  height: 90%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+#grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.board{
+        text-align:center;
+        width:100%;
+        height:250px;
+        background-image: url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA0MDFfMTEy%2FMDAxNjE3MjM2MDc5NDc4.r7ML9az-fyNl95x9Yu6glckB2qoGK-goJ5PsDTV2N3sg.sgiX8XiqzCB_IeKHqa7zc0xBH7uBXVEfISBkRNJfZPwg.PNG.rtkids100%2F1k983.png&type=sc960_832');
+        background-repeat:no-repeat;
+        padding-top:60px;
+        background-attachment: fixed;
+        background-size: cover;
+
+
+      }
+.dongtan{
+  margin-top: 50px;
+}
+.middle{
+  border-top:1px solid;
+  border-bottom:1px solid;
+  margin-top:40px;
+  text-align:center;
+  font-size:20px;
+}
+.sector{
+  margin-top:50px;
+}
+.text{
+   font-size:70px;
+   border:1px solid #ffffff;
+   background-color: #ffffff;
+   opacity: 0.5;
+   font-weight: bold;
+   margin-top:80px;
+}
+  </style>
+</head>
+<body>
+  <div class = "dongtan">
+     <img src = "https://dongtan.hs.kr/upload/dongtan.hs.kr/site_file/logo.jpg" style = "height:80px;">
+   </div>
+   <div class = "board">
+     <div class = "text">
+     어서오세요. 동탄고 커뮤니티 사이트입니다.
+     </div>
+   </div>
+
+  <header>
+
+  </header>
+
+  <nav>
+    <ul class="nav-container"> <!--링크 추가부탁-->
+      <li class="nav-item"><a href="../">동탄고 커뮤니티</a></li>
+      <li class="nav-item"><a href="../post/write">게시하기</a></li>
+      <li class="nav-item"><a href="../board">게시판</a></li>
+      <li class="nav-item"><a href="../notice">공지사항</a></li>
+      <li class="nav-item"><a href="학교소개.html">학교 소개</a></li>
+    </ul>
+  </nav>
+  <div id ="grid">
+<table class="table">
+  <thead>
+    <th>게시물 보기</th>
+  </thead>
+  <tbody>
+    <!--
+    <tr>
+    <td><a href="게시(백범 김구).html">게시물1 "동탄고 운동장 근황" </a></td>
+
+    </tr>
+    <tr>
+    <td><a href="게시(급식).html">게시물2 "요즘 동탄고 급식 모습"</a></td>
+    </tr>
+    <tr>
+    <td><a href="">게시물3 "비어있음"</a></td>
+    </tr>
+    <tr>
+    <td><a href="">게시물4 "비어있음"</a></td>
+    </tr>
+    <tr>
+    <td><a href="">게시물5 "비어있음"</a></td>
+    </tr>-->
+    
+    
+      {% if  Posts|length < 6 %}
+        {% for j in range(Posts|length-1,-1, -1) %}
+        <tr>
+          <td><a href="/post/read?postId={{Posts[j]['id']}}">[{{ Posts[j]['tags'] }}] {{ Posts[j]['title'] }}</a></td>
+        </tr>
+        {% endfor %}
+        {% for j in range(0,5-Posts|length) %}
+        <tr>
+          <td><a href="">"비어있음"</a></td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        {% for j in range(Posts|length-1,Posts|length-6, -1) %}
+        <tr>
+          <td><a href="/post/read?postId={{Posts[j]['id']}}">[{{ Posts[j]['tags'] }}] {{ Posts[j]['title'] }}</a></td>
+        </tr>
+        {% endfor %}
+      {% endif %}
+    
+    
+
+  </tbody>
+</table>
+
+<table class="table2">
+  <thead>
+    <th>공지사항</th> 
+  </thead>
+  <tbody>
+    <tr>
+    <td><a href="공지사항(7월급식).html"> "공지사항 안내입니다. 동탄고 7월 급식" </a></td>
+
+    </tr>
+    <tr>
+    <td><a href="공지사항(학사일정).html">"공지사항 안내입니다. 2022년도 학사일정"</a></td>
+    </tr>
+    <tr>
+    <td><a href="공지사항(모의고사).html">"공지사항 안내입니다. 모의고사"</a></td>
+    </tr>
+    <tr>
+    <td><a href="공지사항(시간표).html">"공지사항 안내입니다. 시간표"</a></td>
+    </tr>
+    <tr>
+    <td><a href="">"비어있음"</a></td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+  <div class = "middle">
+    <h2>동탄고 학생들만의 익명 채팅창</h2>
+    </div>
+
+<div class = "sector">
+<div id="main">
+  <div id="chat">
+    <!-- 채팅 메시지 영역 -->
+  </div>
+  <div>
+    <input type="text" id="test" placeholder="메시지를 입력해주세요..">
+    <button onclick="send()">전송</button>
+  </div>
+</div>
+</div>
+</body>
