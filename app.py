@@ -20,6 +20,10 @@ def board():
 def notice():
 	return render_template("notice.html")
 
+@app.route("/introduce")
+def introduce():
+    return render_template("학교소개.html")
+
 @app.route("/post/write", methods=['GET','POST'])
 def postWrite():
     if(request.method == 'GET'):
@@ -47,6 +51,20 @@ def postRead():
         if (post['id'] == postId):
             return render_template("viewPost.html", post = post)
 
+    return 'Not Found'
+
+@app.route("/notice/read", methods=['GET'])
+def noticeRead():
+    postId = int(request.args.get('postId'))
+
+    if postId == 1:
+        return render_template("공지사항(7월급식).html") 
+    elif postId == 2:
+        return render_template("공지사항(학사일정).html") 
+    elif postId == 3:
+        return render_template("공지사항(모의고사).html")
+    elif postId == 4:
+        return render_template("공지사항(시간표).html")
     return 'Not Found'
 
 if __name__ == "__main__":
